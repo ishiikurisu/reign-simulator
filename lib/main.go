@@ -3,21 +3,25 @@ package main
 import (
     "fmt"
     "syscall/js"
+    "io/ioutil"
+    // "image/png"
+    // "bytes"
 )
 
-func add(this js.Value, i []js.Value) interface{} {
-    js.Global().Set("output", js.ValueOf(i[0].Int()+i[1].Int()))
-    return js.ValueOf(i[0].Int() + i[1].Int())
-}
-
-func subtract(this js.Value, i []js.Value) interface{} {
-    js.Global().Set("output", js.ValueOf(i[0].Int()-i[1].Int()))
-    return js.ValueOf(i[0].Int() - i[1].Int())
+func loadMap(this js.Value, i []js.Value) interface{} {
+    fileName := i[0].String()
+    fmt.Println(fileName)
+    fileBytes, oops := ioutil.ReadFile(fileName)
+    if oops != nil {
+        return oops
+    }
+    // reader := bytes.NewReader(byteData)
+    // simage, oops := png.Decode(reader)
+    return js.ValueOf(fileBytes)
 }
 
 func registerCallbacks() {
-    js.Global().Set("add", js.FuncOf(add))
-    js.Global().Set("subtract", js.FuncOf(subtract))
+    js.Global().Set("loadMap", js.FuncOf(loadMap))
 }
 
 func main() {
