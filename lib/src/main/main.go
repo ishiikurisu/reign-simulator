@@ -10,7 +10,6 @@ import (
 
 func loadMap(this js.Value, i []js.Value) interface{} {
     fileName := i[0].String()
-    fmt.Println(fileName)
     fileBytes, oops := ioutil.ReadFile(fileName)
     if oops != nil {
         return oops
