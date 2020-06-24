@@ -1,5 +1,12 @@
 package maps
 
+import (
+    "image/png"
+    "bytes"
+)
+
 func Png2Map(bts []byte) [][]int {
-	return nil
+    reader := bytes.NewReader(byteData)
+    simage, oops := png.Decode(reader)
+	
 }

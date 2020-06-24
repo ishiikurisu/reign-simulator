@@ -4,8 +4,7 @@ import (
     "fmt"
     "syscall/js"
     "io/ioutil"
-    // "image/png"
-    // "bytes"
+    "maps"
 )
 
 func loadMap(this js.Value, i []js.Value) interface{} {
@@ -14,8 +13,6 @@ func loadMap(this js.Value, i []js.Value) interface{} {
     if oops != nil {
         return oops
     }
-    // reader := bytes.NewReader(byteData)
-    // simage, oops := png.Decode(reader)
     return js.ValueOf(fileBytes)
 }
 
