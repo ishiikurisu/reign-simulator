@@ -7,13 +7,38 @@ import (
 )
 
 // TODO Generate expected matrix
-func generateTestMatrix() [][]int {
+func generateTestMatrix() [][][]uint32 {
 	return nil
 }
 
-func compareMatrixes(a, b [][]int) bool {
-	// TODO Compare matrixes
-	return false
+func compareMatrixes(a, b [][][]uint32) bool {
+	xLen := len(a)
+	if xLen != len(b) {
+		return false
+	}
+	for x := 0; x < xLen; x++ {
+		ax := a[x]
+		bx := b[x]
+		yLen := len(ax)
+		if yLen != len(bx) {
+			return false
+		}
+		for y := 0; y < yLen; y++ {
+			axy := a[x][y]
+			bxy := b[x][y]
+			zLen := len(axy)
+			if zLen != len(bxy) {
+				return false
+			}
+			for z := 0; z < zLen; z++ {
+				if a[x][y][z] != b [x][y][z] {
+					return false
+				}
+			}
+		}
+	}
+
+	return true
 }
 
 func generateBrowserPng() string {
@@ -24,18 +49,18 @@ func generateTestFileName() string {
 	return "/home/cris/Documentos/Maker/reign/simulator/img/test.png"
 }
 
-func TestBrowserPngIsEqual(t *testing.T) {
+func TestBrowserPngIsEqualToStoredPng(t *testing.T) {
 	encodedPngFromBrowser := generateBrowserPng()
 	pngFromBrowser, err := base64.StdEncoding.DecodeString(encodedPngFromBrowser)
 	if err != nil {
-		t.Error("Couldn't decode bytes from browser")
+		t.Error("Couldn't decode bytes from browser to compare with file image")
 		return
 	}
 
 	fileName := generateTestFileName()
 	pngFromFile, oops := ioutil.ReadFile(fileName)
 	if oops != nil {
-		t.Error("Couldn't load test image")
+		t.Error("Couldn't load test image to compare with browser image")
 		return
 	}
 
@@ -50,34 +75,11 @@ func TestBrowserPngIsEqual(t *testing.T) {
 			return
 		}
 	}
-}
 
-func TestLoadPngFromBrowser(t *testing.T) {
-	pngFromBrowser := generateBrowserPng()
-	decodedPng, err := base64.StdEncoding.DecodeString(pngFromBrowser)
-	if err != nil {
-		t.Error("Couldn't decode bytes from browser")
-		return
-	}
-	resultMatrix := Png2Map(decodedPng)
-	expectedMatrix := generateTestMatrix()
-	if !compareMatrixes(expectedMatrix, resultMatrix) {
-		t.Error("Couldn't load matrix from browser bytes")
-		return
-	}
-}
-
-func TestLoadPngFromFile(t *testing.T) {
-	fileName := generateTestFileName()
-	pngBytes, oops := ioutil.ReadFile(fileName)
-	if oops != nil {
-		t.Error("Couldn't load test image")
-		return
-	}
-	resultMatrix := Png2Map(pngBytes)
-	expectedMatrix := generateTestMatrix()
-	if !compareMatrixes(expectedMatrix, resultMatrix) {
-		t.Error("Couldn't load matrix from files")
+	mapFromFile := Png2Map(pngFromFile)
+	mapFromBrowser := Png2Map(pngFromBrowser)
+	if !compareMatrixes(mapFromFile, mapFromBrowser) {
+		t.Error("Browser map is wrong")
 		return
 	}
 }

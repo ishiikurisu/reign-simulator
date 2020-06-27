@@ -3,17 +3,18 @@ package main
 import (
     "fmt"
     "syscall/js"
-    "io/ioutil"
+    "encoding/base64"
     "maps"
 )
 
 func loadMap(this js.Value, i []js.Value) interface{} {
-    fileName := i[0].String()
-    fileBytes, oops := ioutil.ReadFile(fileName)
+    encodedPngFromBrowser := i[0].String()
+    pngFromBrowser, oops := base64.StdEncoding.DecodeString(encodedPngFromBrowser)
     if oops != nil {
         return oops
     }
-    return js.ValueOf(fileBytes)
+    world := maps.Png2Map(pngFromBrowser)
+    return js.ValueOf(world)
 }
 
 func registerCallbacks() {
