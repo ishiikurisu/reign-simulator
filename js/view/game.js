@@ -1,10 +1,12 @@
-function GameView() {
-    this.setup = () => {
+class GameView {
+    constructor() { }
+
+    setup() {
         createCanvas(800, 600);
-        background();
+        background(220);
     }
 
-    this.draw = () => {
+    draw(controller) {
         ellipse(mouseX, mouseY, 80, 80);
     }
 }

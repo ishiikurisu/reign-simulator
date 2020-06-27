@@ -1,5 +1,3 @@
-var CONTROLLER;
-
 function setup() {
     CONTROLLER = new MainMenuController();
     CONTROLLER.setup();

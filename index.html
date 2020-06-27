@@ -23,7 +23,7 @@
 
             let mod, inst;
 
-            WebAssembly.instantiateStreaming(fetch("js/lib.wasm"), go.importObject).then(
+            WebAssembly.instantiateStreaming(fetch("/js/lib.wasm"), go.importObject).then(
                 result => {
                     mod = result.module;
                     inst = result.instance;
@@ -42,8 +42,9 @@
                     document.addEventListener('DOMContentLoaded', fn);
                 }
             }
+
+            var CONTROLLER = null;
         </script>
-        <script src="/js/game.js" charset="utf-8"></script>
         <script src="/js/view/game.js" charset="utf-8"></script>
         <script src="/js/controller/game.js" charset="utf-8"></script>
         <script src="/js/view/main_menu.js" charset="utf-8"></script>

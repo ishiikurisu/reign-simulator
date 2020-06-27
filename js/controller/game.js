@@ -1,15 +1,24 @@
-function GameController(start_mode, save_data) {
-    this.view = new GameView();
-    this.map = loadMap(save_data);
-
-    this.setup = () => {
+class GameController {
+    constructor(startMode, saveData) {
         gorun();
+        this.view = new GameView();
+        this.map = null;
+        this.rawData = saveData;
+    }
+
+    setup() {
+        const head = "data:image/png;base64,"
+        const pngData = (this.rawData.includes(head))? this.rawData.substring(head.length): this.rawData;
+        this.map = loadMap(pngData);
         this.view.setup();
     }
 
-    this.update = () => { }
+    update() { }
 
-    this.draw = () => {
+    draw() {
         this.view.draw(this);
+        if (mouseIsPressed) {
+            console.log(this.map);
+        }
     }
 }

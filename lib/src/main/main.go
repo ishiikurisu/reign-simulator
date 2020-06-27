@@ -14,6 +14,7 @@ func loadMap(this js.Value, i []js.Value) interface{} {
         return oops
     }
     world := maps.Png2Map(pngFromBrowser)
+    // TODO Fix this value
     return js.ValueOf(world)
 }
 

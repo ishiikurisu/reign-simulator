@@ -1,11 +1,18 @@
-function MainMenuController() {
-    this.view = new MainMenuView();
+class MainMenuController {
+    constructor() {
+        this.view = new MainMenuView();
+    }
 
-    this.setup = () => {
+    setup() {
         this.view.draw(this);
     }
 
-    this.update = () => { }
+    update() { }
 
-    this.draw = () => { }
+    draw() { }
+
+    newGame(mapData) {
+        CONTROLLER = new GameController('new_game', mapData);
+        CONTROLLER.setup();
+    }
 }
