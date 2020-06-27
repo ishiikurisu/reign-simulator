@@ -7,9 +7,8 @@
     </head>
 
     <body>
-        <div id="content">
-        </div>
-
+        <div id="content"></div>
+        <script src="/js/p5.min.js"></script>
         <script src="/js/wasm_exec.js"></script>
         <script>
             if (!WebAssembly.instantiateStreaming) {
@@ -45,9 +44,10 @@
             }
         </script>
         <script src="/js/game.js" charset="utf-8"></script>
-        <script src="/js/index.js" charset="utf-8"></script>
-        <script type="text/javascript">
-            ready(main);
-        </script>
+        <script src="/js/view/game.js" charset="utf-8"></script>
+        <script src="/js/controller/game.js" charset="utf-8"></script>
+        <script src="/js/view/main_menu.js" charset="utf-8"></script>
+        <script src="/js/controller/main_menu.js" charset="utf-8"></script>
+        <script src="/js/sketch.js" charset="utf-8"></script>
     </body>
 </html>
