@@ -1,5 +1,18 @@
-#content {
+html, body {
+    margin: 0;
+    padding: 0;
+    border: 0;
     width: 100%;
     height: 100%;
+    background: black;
+    color: white;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
     align-items: center;
+    height: 80%;
 }

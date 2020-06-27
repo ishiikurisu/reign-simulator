@@ -8,7 +8,7 @@ class GameController {
 
     setup() {
         const head = "data:image/png;base64,"
-        const pngData = (this.rawData.includes(head))? this.rawData.substring(head.length): this.rawData;
+        const pngData = (this.rawData.includes(head))? this.rawData.substring(head.length) : this.rawData;
         this.map = loadMap(pngData);
         this.view.setup();
     }
@@ -17,8 +17,10 @@ class GameController {
 
     draw() {
         this.view.draw(this);
-        if (mouseIsPressed) {
-            console.log(this.map);
-        }
+    }
+
+    /* BRIDGE FUNCTIONS */
+    getWorld() {
+        return this.map;
     }
 }

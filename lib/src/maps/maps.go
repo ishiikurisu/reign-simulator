@@ -22,7 +22,7 @@ func Png2Map(bts []byte) [][][]uint32 {
         world[y] = make([][]uint32, xLen)
         for x := 0; x < xLen; x++ {
             r, g, b, _ := image.At(x, y).RGBA()
-            q := []uint32 { r, g, b }
+            q := []uint32 { r / 257, g / 257, b / 257 }
             world[y][x] = q
         }
     }
