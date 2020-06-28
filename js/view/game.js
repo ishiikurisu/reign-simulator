@@ -6,10 +6,7 @@ const RED = { r: 255, g: 0, b: 0 };
 
 class GameView {
     constructor() {
-        this.offset = {
-            x: 30,
-            y: 30
-        };
+        this.offset = { x: 30, y: 30 };
         this.blockSize = 10;
         this.selectedBlock = null;
     }
@@ -33,6 +30,7 @@ class GameView {
     }
 
     drawWorld(map) {
+        // TODO constrain map drawing to what is visible on screen
         rectMode(CORNER);
         noStroke();
         for (var j = 0; j < map.length; j++) {
@@ -59,7 +57,7 @@ class GameView {
     }
 
     drawHud() {
-        // TODO Draw HUD
+        // TODO Draw HUD -- what?
     }
 
     draw(controller) {

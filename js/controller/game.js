@@ -5,18 +5,16 @@ class GameController extends BaseController {
         this.view = new GameView();
         this.map = null;
         this.actions = [ ];
-        switch (startMode) {
-            case 'new game':
-                this.rawData = saveData;
-                break;
-            case 'load game':
-                this.map = JSON.parse(saveData);
-                break;
+        if (startMode === "new game") {
+            this.rawData = saveData;
+        } else {
+            this.map = JSON.parse(saveData);
         }
     }
 
     setup() {
-        if (!this.map) {
+        if (!!this.rawData) {
+            // TODO Create controller for loading screen
             const head = "data:image/png;base64,"
             const pngData = (this.rawData.includes(head))
                 ? this.rawData.substring(head.length)
@@ -40,7 +38,13 @@ class GameController extends BaseController {
         }
     }
 
+    /* PLAYER CONTROLS */
     mouseReleased() {
         this.view.toggleBlock(this);
     }
+
+    // TODO Add controls to move map around
+    // TODO Add controls to zoom in/out of map
+    // TODO Add controls to build stuff on map
+    // TODO Simulate society
 }
