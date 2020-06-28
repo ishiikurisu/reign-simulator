@@ -14,7 +14,6 @@ class MainMenuView {
         document.getElementById('button-start').addEventListener('click', function(e) {
             var reader = new FileReader();
             reader.onload = () => {
-                document.getElementById('content').outerHTML = "";
                 controller.newGame(reader.result);
             }
             reader.readAsDataURL(document.getElementById("map-file-name").files[0]);

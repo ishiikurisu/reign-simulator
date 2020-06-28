@@ -13,6 +13,7 @@ class GameView {
     }
 
     setup() {
+        document.getElementById('content').outerHTML = '';
         createCanvas(windowWidth, windowHeight);
     }
 

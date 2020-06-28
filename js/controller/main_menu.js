@@ -12,7 +12,7 @@ class MainMenuController {
     draw() { }
 
     newGame(mapData) {
-        CONTROLLER = new GameController('new_game', mapData);
+        CONTROLLER = new GameController('new game', mapData);
         CONTROLLER.setup();
     }
 }
