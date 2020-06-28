@@ -1,8 +1,10 @@
-class GameController {
+class GameController extends BaseController {
     constructor(startMode, saveData) {
+        super();
         gorun();
         this.view = new GameView();
         this.map = null;
+        this.actions = [ ];
         switch (startMode) {
             case 'new game':
                 this.rawData = saveData;
@@ -26,17 +28,19 @@ class GameController {
         this.view.setup();
     }
 
-    update() {
-        // TODO Move map around
-        // TODO Select blocks
-    }
-
-    draw() {
-        this.view.draw(this);
-    }
-
     /* BRIDGE FUNCTIONS */
     getWorld() {
         return this.map;
+    }
+
+    getWorldDimensions() {
+        return {
+            x: this.map[0].length,
+            y: this.map.length
+        }
+    }
+
+    mouseReleased() {
+        this.view.toggleBlock(this);
     }
 }

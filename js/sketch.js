@@ -12,3 +12,7 @@ function draw() {
     CONTROLLER.update();
     CONTROLLER.draw();
 }
+
+function mouseReleased() {
+    CONTROLLER.mouseReleased();
+}
