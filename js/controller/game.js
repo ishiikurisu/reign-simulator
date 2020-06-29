@@ -43,8 +43,32 @@ class GameController extends BaseController {
         this.view.toggleBlock(this);
     }
 
-    // TODO Add controls to move map around
-    // TODO Add controls to zoom in/out of map
+    update() {
+        if (keyIsDown(87)) { // w
+            this.view.offset.y += 5;
+        }
+        if (keyIsDown(65)) { // a
+            this.view.offset.x += 5;
+        }
+        if (keyIsDown(83)) { // s
+            this.view.offset.y -= 5;
+        }
+        if (keyIsDown(68)) { // d
+            this.view.offset.x -= 5;
+        }
+    }
+
+    keyPressed() {
+        switch (keyCode) {
+            case 81: // q
+                this.view.blockSize++;
+                break;
+            case 69: // e
+                this.view.blockSize--;
+                break;
+        }
+    }
+
     // TODO Add controls to build stuff on map
     // TODO Simulate society
 }

@@ -7,6 +7,8 @@ class BaseController {
 
     mouseReleased() { }
 
+    keyPressed() { }
+
     draw() {
         this.view.draw(this);
     }

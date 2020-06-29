@@ -16,3 +16,7 @@ function draw() {
 function mouseReleased() {
     CONTROLLER.mouseReleased();
 }
+
+function keyPressed() {
+    CONTROLLER.keyPressed();
+}
