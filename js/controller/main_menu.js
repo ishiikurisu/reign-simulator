@@ -11,7 +11,7 @@ class MainMenuController extends BaseController {
     draw() { }
 
     newGame(mapData) {
-        CONTROLLER = new GameController('new game', mapData);
+        CONTROLLER = new LoadGameController('new game', mapData);
         CONTROLLER.setup();
     }
 }

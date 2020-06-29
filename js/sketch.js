@@ -1,7 +1,7 @@
 function setup() {
     var storedMap = localStorage.getItem('map');
     if (!!storedMap) {
-        CONTROLLER = new GameController('load game', storedMap);
+        CONTROLLER = new LoadGameController('load game', storedMap);
     } else {
         CONTROLLER = new MainMenuController();
     }

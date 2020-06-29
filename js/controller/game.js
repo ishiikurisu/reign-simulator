@@ -1,28 +1,14 @@
 class GameController extends BaseController {
-    constructor(startMode, saveData) {
+    constructor(map) {
         super();
-        gorun();
         this.view = new GameView();
         this.map = null;
         this.actions = [ ];
-        if (startMode === "new game") {
-            this.rawData = saveData;
-        } else {
-            this.map = JSON.parse(saveData);
-        }
+        this.map = map;
     }
 
     setup() {
-        if (!!this.rawData) {
-            // TODO Create controller for loading screen
-            const head = "data:image/png;base64,"
-            const pngData = (this.rawData.includes(head))
-                ? this.rawData.substring(head.length)
-                : this.rawData;
-            this.map = loadMap(pngData);
-            localStorage.setItem('map', JSON.stringify(this.map));
-            this.rawData = undefined;
-        }
+        // localStorage.setItem('map', JSON.stringify(this.map));
         this.view.setup();
     }
 
