@@ -30,12 +30,17 @@ class GameView {
     }
 
     drawWorld(map) {
-        // TODO constrain map drawing to what is visible on screen
+        // Defining boundaries
+        let minX = Math.max(0, (0 - this.offset.x) / this.blockSize);
+        let minY = Math.max(0, (0 - this.offset.y) / this.blockSize);
+        let maxX = Math.min(map[0].length, (windowWidth - this.offset.x) / this.blockSize);
+        let maxY = Math.min(map.length, (windowHeight - this.offset.y) / this.blockSize);
+
+        // Drawing map
         rectMode(CORNER);
         noStroke();
-        for (var j = 0; j < map.length; j++) {
-            let xLength = map[j].length;
-            for (var i = 0; i < xLength; i++) {
+        for (var j = Math.floor(minY); j < maxY; j++) {
+            for (var i = Math.floor(minX); i < maxX; i++) {
                 let block = map[j][i];
                 let r = block[0];
                 let g = block[1];
