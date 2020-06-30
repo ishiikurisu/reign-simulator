@@ -31,16 +31,16 @@ class GameController extends BaseController {
 
     update() {
         if (keyIsDown(87)) { // w
-            this.view.offset.y += 5;
+            this.view.offset.y += this.view.blockSize / 2;
         }
         if (keyIsDown(65)) { // a
-            this.view.offset.x += 5;
+            this.view.offset.x += this.view.blockSize / 2;
         }
         if (keyIsDown(83)) { // s
-            this.view.offset.y -= 5;
+            this.view.offset.y -= this.view.blockSize / 2;
         }
         if (keyIsDown(68)) { // d
-            this.view.offset.x -= 5;
+            this.view.offset.x -= this.view.blockSize / 2;
         }
     }
 
