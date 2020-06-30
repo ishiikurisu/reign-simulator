@@ -50,7 +50,9 @@ class GameController extends BaseController {
                 this.view.blockSize++;
                 break;
             case 69: // e
-                this.view.blockSize--;
+                if (this.view.blockSize > 2) {
+                    this.view.blockSize--;
+                }
                 break;
         }
     }

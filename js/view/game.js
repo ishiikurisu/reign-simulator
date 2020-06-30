@@ -6,6 +6,7 @@ const RED = { r: 255, g: 0, b: 0 };
 
 class GameView {
     constructor() {
+        // TODO set offset to be any green region
         this.offset = { x: 30, y: 30 };
         this.blockSize = 10;
         this.selectedBlock = null;
