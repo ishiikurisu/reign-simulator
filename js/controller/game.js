@@ -8,7 +8,7 @@ class GameController extends BaseController {
     }
 
     setup() {
-        // localStorage.setItem('map', JSON.stringify(this.map));
+        localStorage.setItem('map', JSON.stringify(this.map));
         this.view.setup();
     }
 
@@ -59,4 +59,5 @@ class GameController extends BaseController {
 
     // TODO Add controls to build stuff on map
     // TODO Simulate society
+    // TODO Enable gameplay from touch interface
 }

@@ -71,4 +71,6 @@ class GameView {
         this.drawWorld(controller.getWorld());
         this.drawHud();
     }
+
+    // TODO replace colors by images
 }
