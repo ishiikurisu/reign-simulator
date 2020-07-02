@@ -5,7 +5,7 @@ import (
     "bytes"
 )
 
-func Png2Map(bts []byte) [][][]uint32 {
+func Png2Map(bts []byte) [][]Block {
     reader := bytes.NewReader(bts)
     image, oops := png.Decode(reader)
     if oops != nil {
@@ -16,15 +16,15 @@ func Png2Map(bts []byte) [][][]uint32 {
     toPoint := rectangle.Max
     yLen := toPoint.Y - fromPoint.Y
     xLen := toPoint.X - fromPoint.X
-    world := make([][][]uint32, yLen)
+    world := make([][]Block, yLen)
 
     for y := 0; y < yLen; y++ {
-        world[y] = make([][]uint32, xLen)
+        world[y] = make([]Block, xLen)
         for x := 0; x < xLen; x++ {
-            // TODO interpret colors
             r, g, b, _ := image.At(x, y).RGBA()
             q := []uint32 { r / 257, g / 257, b / 257 }
-            world[y][x] = q
+            block, _ := BlockFromColor(q)
+            world[y][x] = block
         }
     }
 

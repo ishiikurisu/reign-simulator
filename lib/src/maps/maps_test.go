@@ -6,7 +6,7 @@ import (
 	"encoding/base64"
 )
 
-func compareMatrixes(a, b [][][]uint32) bool {
+func compareMatrixes(a, b [][]Block) bool {
 	xLen := len(a)
 	if xLen != len(b) {
 		return false
@@ -19,16 +19,8 @@ func compareMatrixes(a, b [][][]uint32) bool {
 			return false
 		}
 		for y := 0; y < yLen; y++ {
-			axy := a[x][y]
-			bxy := b[x][y]
-			zLen := len(axy)
-			if zLen != len(bxy) {
+			if !a[x][y].Compare(b[x][y]) {
 				return false
-			}
-			for z := 0; z < zLen; z++ {
-				if a[x][y][z] != b [x][y][z] {
-					return false
-				}
 			}
 		}
 	}

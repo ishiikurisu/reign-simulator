@@ -35,3 +35,9 @@ func BlockFromColor(color []uint32) (Block, error) {
 
     return block, oops
 }
+
+func (b Block) Compare(a Block) bool {
+    equalKinds := a.Kind == b.Kind
+    equalColors := (a.Color == nil && b.Color == nil) || (a.Color[0] == b.Color[0] && a.Color[1] == b.Color[1] && a.Color[2] == b.Color[2])
+    return equalKinds && equalColors
+}
