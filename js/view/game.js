@@ -3,6 +3,12 @@ const BROWN = { r: 224, g: 236, b: 137 };
 const GREEN = { r: 31, g: 168, b: 36 };
 const BLUE = { r: 0, g: 36, b: 156 };
 const RED = { r: 255, g: 0, b: 0 };
+const KIND_TO_COLOR = {
+    sea: BLUE,
+    mountain: BROWN,
+    grass: GREEN,
+    forest: RED
+}
 
 class GameView {
     constructor() {
@@ -43,9 +49,9 @@ class GameView {
         for (var j = Math.floor(minY); j < maxY; j++) {
             for (var i = Math.floor(minX); i < maxX; i++) {
                 let block = map[j][i];
-                let r = block[0];
-                let g = block[1];
-                let b = block[2];
+                let r = block.color[0];
+                let g = block.color[1];
+                let b = block.color[2];
                 let x = this.offset.x + (i * this.blockSize);
                 let y = this.offset.y + (j * this.blockSize);
                 let s = this.blockSize;

@@ -4,11 +4,12 @@ class GameController extends BaseController {
         this.view = new GameView();
         this.map = null;
         this.actions = [ ];
+        console.log(map);
         this.map = map;
     }
 
     setup() {
-        localStorage.setItem('map', JSON.stringify(this.map));
+        // localStorage.setItem('map', JSON.stringiy(this.map));
         this.view.setup();
     }
 
