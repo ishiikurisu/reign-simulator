@@ -6,11 +6,6 @@ import (
 	"encoding/base64"
 )
 
-// TODO Generate expected matrix
-func generateTestMatrix() [][][]uint32 {
-	return nil
-}
-
 func compareMatrixes(a, b [][][]uint32) bool {
 	xLen := len(a)
 	if xLen != len(b) {
@@ -81,5 +76,37 @@ func TestBrowserPngIsEqualToStoredPng(t *testing.T) {
 	if !compareMatrixes(mapFromFile, mapFromBrowser) {
 		t.Error("Browser map is wrong")
 		return
+	}
+}
+
+func TestConvertColorToBlock(t *testing.T) {
+	mountainColor := []uint32{ 224, 236, 137 }
+	mountainKind := "mountain"
+	grassColor := []uint32{ 31, 168, 36 }
+	grassKind := "grass"
+	seaColor := []uint32{ 0, 36, 156 }
+	seaKind := "sea"
+	forestColor := []uint32{ 0, 87, 63 }
+	forestKind := "forest"
+
+	colors := [][]uint32{
+		mountainColor,
+		grassColor,
+		seaColor,
+		forestColor,
+	}
+	kinds := []string{
+		mountainKind,
+		grassKind,
+		seaKind,
+		forestKind,
+	}
+
+	for i, color := range colors {
+		kind := kinds[i]
+		block, error := BlockFromColor(color)
+		if block.Kind != kind || error != nil {
+			t.Error("Got wrong title for color")
+		}
 	}
 }
