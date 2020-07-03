@@ -5,6 +5,8 @@ class GameController extends BaseController {
         this.map = null;
         this.actions = [ ];
         this.map = map;
+        // TODO store and load society from memory
+        this.society = [ ];
     }
 
     setup() {
@@ -12,9 +14,20 @@ class GameController extends BaseController {
         this.view.setup();
     }
 
-    /* PLAYER CONTROLS */
+    /* ####################
+       # ACTIONS FUNCTIONS #
+       #################### */
+
+    build(what, where) {
+        this.society.push({what: what, where: where});
+    }
+
+    /* ############################
+       # PLAYER ACTIONS FUNCTIONS #
+       ############################ */
+
     mouseReleased() {
-        this.view.toggleBlock();
+        this.view.toggleBlock(this);
     }
 
     update() {
@@ -45,7 +58,6 @@ class GameController extends BaseController {
         }
     }
 
-    // TODO Add controls to build stuff on map
     // TODO Simulate society
     // TODO Enable gameplay from touch interface
 }

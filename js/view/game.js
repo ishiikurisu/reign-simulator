@@ -22,6 +22,12 @@ class GameView {
             y: this.map.length
         }
         this.menuOption = null;
+
+        // loading images
+        this.sprites = {
+            'house': loadImage("/img/assets/house.png"),
+            'farm': loadImage("/img/assets/farm.png")
+        };
     }
 
     setup() {
@@ -33,7 +39,7 @@ class GameView {
        # INTERACTION FUNCTIONS #
        ######################### */
 
-    toggleBlock() {
+    toggleBlock(controller) {
         if (!!this.selectedBlock) {
             this.selectedBlock = null;
             removeElements();
@@ -52,7 +58,7 @@ class GameView {
                 this.selectedBlock = { x: x, y: y };
             }
 
-            this.drawBlockOptions();
+            this.drawBlockOptions(controller);
         }
     }
 
@@ -83,25 +89,17 @@ class GameView {
                 let y = this.offset.y + (j * this.blockSize);
                 let s = this.blockSize;
 
-                if (!!this.selectedBlock && this.selectedBlock.x === i && this.selectedBlock.y === j) {
-                    r = RED.r;
-                    g = RED.g;
-                    b = RED.b;
-                }
-
                 fill(r, g, b);
                 square(x, y, s);
-
-                // TODO Make selected block shine instead of being just red
             }
         }
     }
 
     /**
      * Draws options to interact with block
+     * @param controller the game controller (MVC sense)
      */
-    drawBlockOptions() {
-        // Draw options to act on block
+    drawBlockOptions(controller) {
         var lineHeight = windowHeight * 0.81; // 81%
         var buttonWidth = windowWidth * 0.05; // 5%
         textSize(16);
@@ -110,12 +108,11 @@ class GameView {
             const optionsAndCallbacks = {
                 'build house': () => {
                     removeElements();
-                    console.log("building house");
-                    // TODO add house on selected block
+                    controller.build('house', this.selectedBlock);
                 },
                 'build farm': () => {
                     removeElements();
-                    console.log("building farm");
+                    controller.build('farm', this.selectedBlock);
                     // TODO add farmland on selected block
                 }
                 // TODO expand this with other options
@@ -153,6 +150,40 @@ class GameView {
     }
 
     /**
+     * Draws human constructions on world
+     * @param controller the game controller (MVC sense)
+     */
+    drawSociety(controller) {
+        let limit = controller.society.length;
+
+        for (var i = 0; i < limit; i++) {
+            let building = controller.society[i];
+            let sprite = this.sprites[building.what];
+            let x = this.offset.x + (building.where.x * this.blockSize);
+            let y = this.offset.y + (building.where.y * this.blockSize);
+            // TODO only draw block if it's visible in canvas
+            image(sprite, x, y, this.blockSize, this.blockSize);
+        }
+    }
+
+    /**
+     * Highlights selected block to facilitate its visualization
+     */
+    highlightSelectedBlock() {
+        // TODO make selected block pulse instead of being just red
+        if (!!this.selectedBlock) {
+            let x = this.offset.x + (this.selectedBlock.x * this.blockSize);
+            let y = this.offset.y + (this.selectedBlock.y * this.blockSize);
+            let s = this.blockSize;
+            let r = RED.r;
+            let g = RED.g;
+            let b = RED.b;
+            fill(r, g, b);
+            square(x, y, s);
+        }
+    }
+
+    /**
      * Main draw function loop
      * @param controller the game controller (MVC sense)
      */
@@ -160,6 +191,8 @@ class GameView {
         // IDEA only update drawing if a change happens
         background(BLACK.r, BLACK.g, BLACK.b);
         this.drawWorld();
+        this.drawSociety(controller);
+        this.highlightSelectedBlock();
         this.drawResources();
     }
 
