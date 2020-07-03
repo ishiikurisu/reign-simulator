@@ -25,6 +25,7 @@ class GameController extends BaseController {
     /* ############################
        # PLAYER ACTIONS FUNCTIONS #
        ############################ */
+    // TODO Move these player action functions to the view
 
     mouseReleased() {
         this.view.toggleBlock(this);

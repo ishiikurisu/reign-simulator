@@ -113,7 +113,6 @@ class GameView {
                 'build farm': () => {
                     removeElements();
                     controller.build('farm', this.selectedBlock);
-                    // TODO add farmland on selected block
                 }
                 // TODO expand this with other options
             };
@@ -197,4 +196,5 @@ class GameView {
     }
 
     // TODO replace colors by images
+    // TODO Zoom in and out of the middle of the screen instead of making blocks larger
 }
