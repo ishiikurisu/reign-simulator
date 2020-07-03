@@ -23,7 +23,7 @@ onmessage = function(message) {
         waitForGoRun(() => {
             let saveData = message.data.saveData;
             let gameMode = message.data.gameMode;
-            let map = saveData;
+            let map = null;
 
             if (gameMode === 'new game') {
                 const head = "data:image/png;base64,"
@@ -31,7 +31,10 @@ onmessage = function(message) {
                                 ? saveData.substring(head.length)
                                 : saveData;
                 map = loadMap(pngData);
+            } else {
+                map = JSON.parse(saveData);
             }
+
             postMessage({
                 map: map
             });

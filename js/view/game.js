@@ -64,18 +64,21 @@ class GameView {
 
                 fill(r, g, b);
                 square(x, y, s);
+
+                // TODO Make selected block shine instead of being just red
             }
         }
     }
 
-    drawHud() {
-        // TODO Draw HUD -- what?
+    drawHud(controller) {
+        // TODO draw options to act on block
+        // TODO draw resources
     }
 
     draw(controller) {
         background(BLACK.r, BLACK.g, BLACK.b);
         this.drawWorld(controller.getWorld());
-        this.drawHud();
+        this.drawHud(controller);
     }
 
     // TODO replace colors by images
