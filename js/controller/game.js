@@ -1,7 +1,7 @@
 class GameController extends BaseController {
     constructor(map) {
         super();
-        this.view = new GameView();
+        this.view = new GameView(map);
         this.map = null;
         this.actions = [ ];
         this.map = map;
@@ -12,21 +12,9 @@ class GameController extends BaseController {
         this.view.setup();
     }
 
-    /* BRIDGE FUNCTIONS */
-    getWorld() {
-        return this.map;
-    }
-
-    getWorldDimensions() {
-        return {
-            x: this.map[0].length,
-            y: this.map.length
-        }
-    }
-
     /* PLAYER CONTROLS */
     mouseReleased() {
-        this.view.toggleBlock(this);
+        this.view.toggleBlock();
     }
 
     update() {
