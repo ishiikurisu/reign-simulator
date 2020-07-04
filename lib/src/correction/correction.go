@@ -6,6 +6,9 @@ import (
     "maps"
     "io/ioutil"
     "math"
+    "image"
+    "image/color"
+    "image/png"
 )
 
 func main() {
@@ -13,35 +16,31 @@ func main() {
     inputFile := args[0]
     outputFile := args[1]
 
-    png, oops := ioutil.ReadFile(inputFile)
+    pngBytes, oops := ioutil.ReadFile(inputFile)
     if oops != nil {
         fmt.Printf("ERROR LOADING FILE (%s)\n", inputFile)
         return
     }
+    m := maps.Png2Map(pngBytes)
 
-    world := maps.Png2Map(png)
-    correctedWorld := correct(world)
-    maps.Map2Png(correctedWorld, outputFile)
-}
-
-func correct(inlet [][]maps.Block) [][]maps.Block {
-    allowedColors := [][]uint32{
-        []uint32{224, 236, 137},
-        []uint32{31, 168, 36},
-        []uint32{0, 36, 156},
-        []uint32{0, 87, 63},
+    allowedColors := [][]uint8{
+        []uint8{224, 236, 137},
+        []uint8{31, 168, 36},
+        []uint8{0, 36, 156},
+        []uint8{0, 87, 63},
     }
 
-    limitI := len(inlet)
-    outlet := make([][]maps.Block, limitI)
-    for i := 0; i < limitI; i++ {
-        inletRow := inlet[i]
-        limitJ := len(inletRow)
-        outletRow := make([]maps.Block, limitJ)
+    height := len(m)
+    width := len(m[0])
+    upLeft := image.Point{0, 0}
+    lowRight := image.Point{width, height}
+    img := image.NewRGBA(image.Rectangle{upLeft, lowRight})
 
-        for j := 0; j < limitJ; j++ {
-            inletBlock := inletRow[j]
-            originalColor := inletBlock.Color
+    for x := 0; x < width; x++ {
+        for y := 0; y < height; y++ {
+            block := m[y][x]
+
+            originalColor := block.Color
             minDiff := 2570.0
             correctedColorIndex := -1
 
@@ -58,15 +57,16 @@ func correct(inlet [][]maps.Block) [][]maps.Block {
                 }
             }
 
-            outletBlock := maps.Block{
-                Kind: inletBlock.Kind,
-                Color: allowedColors[correctedColorIndex],
+            c := color.RGBA{
+                allowedColors[correctedColorIndex][0],
+                allowedColors[correctedColorIndex][1],
+                allowedColors[correctedColorIndex][2],
+                0xff,
             }
-            outletRow[j] = outletBlock
+            img.Set(x, y, c)
         }
-
-        outlet[i] = outletRow
     }
 
-    return outlet
+    fp, _ := os.Create(outputFile)
+    png.Encode(fp, img)
 }
