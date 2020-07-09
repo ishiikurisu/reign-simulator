@@ -58,15 +58,26 @@ func tick(this js.Value, i[]js.Value) interface{} {
             }
         }
     }
-    fmt.Printf("#%v\n", m)
 
-    // TODO convert society from JS
-    // sJs := i[1]
-    // s := make([]maps.Institution, 10)
+    // converting society from JS
+    sJs := i[1]
+    sLen := sJs.Length()
+    s := make([]maps.Institution, sLen)
 
-    // TODO Update society living on map
-    // return maps.Tick(m, s)
-    return "TODO"
+    for i := 0; i < sLen; i++ {
+        si := sJs.Index(i)
+        s[i] = maps.Institution{
+            What: si.Get("what").String(),
+            Where: []int{
+                si.Get("where").Get("x").Int(),
+                si.Get("where").Get("y").Int(),
+            },
+            Memory: si.Get("memory").String(),
+            Script: si.Get("script").String(),
+        }
+    }
+
+    return ValueOf(maps.Tick(m, s))
 }
 
 func registerCallbacks() {

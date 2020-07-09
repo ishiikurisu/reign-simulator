@@ -16,3 +16,4 @@ color-correction:
 	cd lib; make color-correction
 	mv lib/*.exe .
 	./color-correction.exe img/test.png img/corrected-test.png
+	./color-correction.exe img/reign.png img/corrected-reign.png
