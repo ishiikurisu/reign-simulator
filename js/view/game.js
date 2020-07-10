@@ -22,6 +22,7 @@ class GameView {
             y: this.map.length
         }
         this.menuOption = null;
+        this.ellapsedTime = 0;
 
         // loading images
         this.sprites = {
@@ -169,7 +170,6 @@ class GameView {
      * Highlights selected block to facilitate its visualization
      */
     highlightSelectedBlock() {
-        // TODO make selected block pulse instead of being just red
         if (!!this.selectedBlock) {
             let x = this.offset.x + (this.selectedBlock.x * this.blockSize);
             let y = this.offset.y + (this.selectedBlock.y * this.blockSize);
@@ -177,7 +177,9 @@ class GameView {
             let r = RED.r;
             let g = RED.g;
             let b = RED.b;
-            fill(r, g, b);
+            let a = 250 * (0.5 + 0.5 * Math.sin(2 * Math.PI * this.ellapsedTime / 1000));
+            console.log(a);
+            fill(r, g, b, a);
             square(x, y, s);
         }
     }
@@ -193,6 +195,7 @@ class GameView {
         this.drawSociety(controller);
         this.highlightSelectedBlock();
         this.drawResources();
+        this.ellapsedTime += deltaTime;
     }
 
     // TODO replace colors by images
