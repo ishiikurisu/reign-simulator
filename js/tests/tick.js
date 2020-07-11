@@ -35,10 +35,14 @@ function mockSociety() {
     let limit = society.length;
 
     for (var i = 0; i < limit; i++) {
-        society[i]['memory'] = '{}';
-        society[i]['script'] = `// script
-console.log("hello world");
-`;
+        society[i]['memory'] = {};
+        society[i]['script'] = function(world, institutions, index) {
+            let institution = institutions[index];
+            console.log(`--- # ${index}`);
+            console.log(world);
+            console.log(institutions);
+            console.log(institution);
+        };
     }
 
 
@@ -52,7 +56,6 @@ function main() {
             var map = loadMap(pastePng());
             var society = mockSociety();
             updatedSociety = tick(map, society);
-            console.log(updatedSociety);
         });
     });
 }
