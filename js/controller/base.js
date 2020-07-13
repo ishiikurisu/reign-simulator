@@ -5,9 +5,13 @@ class BaseController {
 
     update() { }
 
-    mouseReleased() { }
+    mouseReleased() { 
+        this.view.mouseReleased(this);
+    }
 
-    keyPressed() { }
+    keyPressed() { 
+        this.view.keyPressed(this);
+    }
 
     draw() {
         this.view.draw(this);

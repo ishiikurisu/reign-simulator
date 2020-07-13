@@ -4,8 +4,10 @@ const MAIN_MENU_HTML = `
     <button id="button-start">Start</button>
 `;
 
-class MainMenuView {
-    constructor() { }
+class MainMenuView extends BaseView {
+    constructor() { 
+        super();
+    }
 
     draw(controller) {
         const clearScreen = this.clearScreen;

@@ -10,8 +10,9 @@ const KIND_TO_COLOR = {
     forest: RED
 }
 
-class GameView {
+class GameView extends BaseView {
     constructor(map) {
+        super();
         // TODO set offset to be any green region
         this.offset = { x: 30, y: 30 };
         this.blockSize = 10;
@@ -60,6 +61,42 @@ class GameView {
             }
 
             this.drawBlockOptions(controller);
+        }
+    }
+    
+    /* ###################
+       # INPUT FUNCTIONS #
+       ################### */
+    
+    mouseReleased(controller) {
+        this.toggleBlock(controller);
+    }
+
+    moveMap() {
+        if (keyIsDown(87)) { // w
+            this.offset.y += 5;
+        }
+        if (keyIsDown(65)) { // a
+            this.offset.x += 5;
+        }
+        if (keyIsDown(83)) { // s
+            this.offset.y -= 5;
+        }
+        if (keyIsDown(68)) { // d
+            this.offset.x -= 5;
+        }
+    }
+
+    keyPressed() {
+        switch (keyCode) {
+            case 81: // q
+                this.blockSize++;
+                break;
+            case 69: // e
+                if (this.blockSize > 2) {
+                    this.blockSize--;
+                }
+                break;
         }
     }
 
@@ -178,7 +215,23 @@ class GameView {
             let g = RED.g;
             let b = RED.b;
             let a = 250 * (0.5 + 0.5 * Math.sin(2 * Math.PI * this.ellapsedTime / 1000));
-            console.log(a);
+            fill(r, g, b, a);
+            square(x, y, s);
+        }
+    }
+    
+    /**
+     * Highlights selected block to facilitate its visualization
+     */
+    highlightSelectedBlock() {
+        if (!!this.selectedBlock) {
+            let x = this.offset.x + (this.selectedBlock.x * this.blockSize);
+            let y = this.offset.y + (this.selectedBlock.y * this.blockSize);
+            let s = this.blockSize;
+            let r = RED.r;
+            let g = RED.g;
+            let b = RED.b;
+            let a = 250 * (0.5 + 0.5 * Math.sin(2 * Math.PI * this.ellapsedTime / 1000));
             fill(r, g, b, a);
             square(x, y, s);
         }

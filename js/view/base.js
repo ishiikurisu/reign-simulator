@@ -1,0 +1,4 @@
+class BaseView {
+    mouseReleased() { }
+    keyPressed() { }
+}
