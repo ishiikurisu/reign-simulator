@@ -16,4 +16,5 @@ color-correction:
 	cd .golang; make color-correction
 	mv .golang/*.exe .
 	./color-correction.exe img/test.png img/corrected-test.png
+	./color-correction.exe img/minami.png img/corrected-minami.png
 	./color-correction.exe img/reign.png img/corrected-reign.png
