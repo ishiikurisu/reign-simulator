@@ -20,8 +20,7 @@ class LoadGameController extends BaseController {
         })
     }
 
-    update() {
-    }
+    update() { }
 
     draw() { }
 }

@@ -34,19 +34,40 @@ function mockSociety() {
     let society = rawSocietyData();
     let limit = society.length;
 
+    console.log("# Updating society");
     for (var i = 0; i < limit; i++) {
-        society[i]['memory'] = {};
+        society[i]['memory'] = (society[i].what === 'farm')? {
+            crop: 0
+        } : { };
         society[i]['script'] = function(world, institutions, index) {
             let institution = institutions[index];
+
+            if (institution.What === 'farm') {
+                institution.Memory.crop += 1;
+            }
+
             console.log(`--- # ${index}`);
             console.log(world);
             console.log(institutions);
             console.log(institution);
+
+            return institution.Memory;
         };
     }
 
-
     return society;
+}
+
+function verifyUpdatedSociety(society) {
+    console.log("# Updated society");
+    for (var i = 0; i < society.length; i++) {
+        let block = society[i];
+        console.log(`--- # ${i}`);
+        console.log(block.what);
+        console.log(block.where);
+        console.log(block.memory);
+        console.log(block.script);
+    }
 }
 
 function main() {
@@ -55,7 +76,8 @@ function main() {
         waitForGo(() => {
             var map = loadMap(pastePng());
             var society = mockSociety();
-            updatedSociety = tick(map, society);
+            var updatedSociety = tick(map, society);
+            verifyUpdatedSociety(updatedSociety);
         });
     });
 }

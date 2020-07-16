@@ -63,11 +63,11 @@ class GameView extends BaseView {
             this.drawBlockOptions(controller);
         }
     }
-    
+
     /* ###################
        # INPUT FUNCTIONS #
        ################### */
-    
+
     mouseReleased(controller) {
         this.toggleBlock(controller);
     }
@@ -146,11 +146,25 @@ class GameView extends BaseView {
             const optionsAndCallbacks = {
                 'build house': () => {
                     removeElements();
-                    controller.build('house', this.selectedBlock);
+                    controller.build(
+                        'house',
+                        this.selectedBlock,
+                        { },
+                        (w, s, i) => {
+                           // console.log(w, s, i);
+                        }
+                    );
                 },
                 'build farm': () => {
                     removeElements();
-                    controller.build('farm', this.selectedBlock);
+                    controller.build(
+                        'farm',
+                        this.selectedBlock,
+                        { },
+                        (w, s, i) => {
+                            // console.log("I am a farm");
+                        }
+                    );
                 }
                 // TODO expand this with other options
             };
@@ -219,7 +233,7 @@ class GameView extends BaseView {
             square(x, y, s);
         }
     }
-    
+
     /**
      * Highlights selected block to facilitate its visualization
      */
