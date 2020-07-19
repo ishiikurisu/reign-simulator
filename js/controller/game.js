@@ -21,9 +21,9 @@ class GameController extends BaseController {
         CONTROLLER.society = tick(CONTROLLER.map, CONTROLLER.society);
     }
 
-    /* ####################
+    /* #####################
        # ACTIONS FUNCTIONS #
-       #################### */
+       ##################### */
 
     build(what, where, memory) {
         this.society.push({
