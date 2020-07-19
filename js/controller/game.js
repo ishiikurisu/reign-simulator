@@ -1,21 +1,20 @@
 class GameController extends BaseController {
-    constructor(map) {
+    constructor(map, society) {
         super();
         gorun();
         this.view = new GameView(map);
         this.map = null;
         this.actions = [ ];
+        this.storage = new Storage();
         this.map = map;
-        // TODO store and load society from memory
-        this.society = [ ];
+        this.society = society;
     }
 
     setup() {
-        // TODO compress this map to prevent quota exceptions
-        // localStorage.setItem('map', JSON.stringify(this.map));
+        this.storage.saveMap(this.map);
+        this.storage.saveSociety(this.society);
         this.view.setup();
         this.tickerIntervalId = setInterval(CONTROLLER.tick, 1000);
-        // TODO autosave society
     }
 
     tick() {
@@ -32,6 +31,7 @@ class GameController extends BaseController {
             where: where,
             memory: memory
         });
+        this.storage.saveSociety(this.society);
     }
 
     update() {

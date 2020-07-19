@@ -1,13 +1,15 @@
 class LoadGameController extends BaseController {
-    constructor(gameMode, saveData) {
+    constructor(gameMode, mapData, societyData) {
         super();
         this.view = new LoadGameView();
         this.gameMode = gameMode;
-        this.saveData = saveData;
+        this.mapData = mapData;
+        this.societyData = societyData;
         this.worker = new Worker("/js/workers/load_game.js");
         this.worker.onmessage = function(result) {
             let map = result.data.map;
-            CONTROLLER = new GameController(map);
+            let society = result.data.society;
+            CONTROLLER = new GameController(map, society);
             CONTROLLER.setup();
         }
     }
@@ -16,7 +18,8 @@ class LoadGameController extends BaseController {
         this.view.draw(this);
         this.worker.postMessage({
             gameMode: this.gameMode,
-            saveData: this.saveData
+            mapData: this.mapData,
+            societyData: this.societyData
         })
     }
 
