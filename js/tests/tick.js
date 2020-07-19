@@ -36,23 +36,7 @@ function mockSociety() {
 
     console.log("# Updating society");
     for (var i = 0; i < limit; i++) {
-        society[i]['memory'] = (society[i].what === 'farm')? {
-            crop: 0
-        } : { };
-        society[i]['script'] = function(world, institutions, index) {
-            let institution = institutions[index];
-
-            if (institution.What === 'farm') {
-                institution.Memory.crop += 1;
-            }
-
-            console.log(`--- # ${index}`);
-            console.log(world);
-            console.log(institutions);
-            console.log(institution);
-
-            return institution.Memory;
-        };
+        society[i]['memory'] = (society[i].what === 'farm')? "crop:0\n" : "";
     }
 
     return society;
@@ -66,7 +50,6 @@ function verifyUpdatedSociety(society) {
         console.log(block.what);
         console.log(block.where);
         console.log(block.memory);
-        console.log(block.script);
     }
 }
 
