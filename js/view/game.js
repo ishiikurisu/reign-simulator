@@ -13,7 +13,7 @@ const KIND_TO_COLOR = {
 class GameView extends BaseView {
     constructor(map) {
         super();
-        // TODO set offset to be any green region
+        // TODO set offset to be any green region in case we start far off the ocean
         this.offset = { x: 30, y: 30 };
         this.blockSize = 10;
         this.selectedBlock = null;
@@ -26,9 +26,19 @@ class GameView extends BaseView {
         this.ellapsedTime = 0;
 
         // loading images
+        // TODO use different sprites depending on the state of the institution
         this.sprites = {
             'house': loadImage("/img/assets/house.png"),
-            'farm': loadImage("/img/assets/farm.png")
+            'farm': loadImage("/img/assets/farm.png"),
+            "bank": loadImage("/img/assets/bank.png"),
+            "factory": loadImage("/img/assets/factory.png"),
+            "port": loadImage("/img/assets/path.png"),
+            "atelier": loadImage("/img/assets/shop.png"),
+            "path": loadImage("/img/assets/path.png"),
+            "mine": loadImage("/img/assets/shop.png"),
+            "shop": loadImage("/img/assets/shop.png"),
+            "guild": loadImage("/img/assets/shop.png"),
+            "laboratory": loadImage("/img/assets/factory.png")
         };
     }
 
@@ -143,40 +153,27 @@ class GameView extends BaseView {
         textSize(16);
 
         if (this.canBlockBeBuiltUpon()) {
-            const optionsAndCallbacks = {
-                'build house': () => {
-                    removeElements();
-                    controller.build(
-                        'house',
-                        this.selectedBlock,
-                        { },
-                        (w, s, i) => {
-                           // console.log(w, s, i);
-                        }
-                    );
-                },
-                'build farm': () => {
-                    removeElements();
-                    controller.build(
-                        'farm',
-                        this.selectedBlock,
-                        { },
-                        (w, s, i) => {
-                            // console.log("I am a farm");
-                        }
-                    );
-                }
-                // TODO expand this with other options
-            };
-
+            let noInstitutions = INSTITUTION_LIST.length;
+            // TODO improve how the buttons are layout on screen
             let widthStep = windowWidth * 0.15;
-            Object.keys(optionsAndCallbacks).forEach((k, i) => {
-                let button = createButton(k);
+
+            for (var i = 0; i < noInstitutions; i++) {
+                let institution = INSTITUTION_LIST[i];
+                let button = createButton(`build ${institution}`);
                 button.position(buttonWidth, lineHeight);
-                button.mousePressed(optionsAndCallbacks[k]);
+                button.mousePressed(() => {
+                    removeElements();
+                    controller.build(
+                        institution,
+                        this.selectedBlock,
+                        INSTITUTIONS[institution].memory,
+                    );
+                });
                 buttonWidth += widthStep;
-            });
+            }
         }
+        // TODO allow ports to be built on water
+        // TODO allow mines to be built on mountains
         // TODO add button to destroy building
         else {
             removeElements();
@@ -265,6 +262,5 @@ class GameView extends BaseView {
         this.ellapsedTime += deltaTime;
     }
 
-    // TODO replace colors by images
     // TODO Zoom in and out of the middle of the screen instead of making blocks larger
 }

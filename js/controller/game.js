@@ -12,9 +12,10 @@ class GameController extends BaseController {
 
     setup() {
         // TODO compress this map to prevent quota exceptions
-        localStorage.setItem('map', JSON.stringify(this.map));
+        // localStorage.setItem('map', JSON.stringify(this.map));
         this.view.setup();
         this.tickerIntervalId = setInterval(CONTROLLER.tick, 1000);
+        // TODO autosave society
     }
 
     tick() {
@@ -25,12 +26,11 @@ class GameController extends BaseController {
        # ACTIONS FUNCTIONS #
        #################### */
 
-    build(what, where, memory, script) {
+    build(what, where, memory) {
         this.society.push({
             what: what,
             where: where,
-            memory: memory,
-            script: script
+            memory: memory
         });
     }
 
